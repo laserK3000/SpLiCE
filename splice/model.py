@@ -141,7 +141,7 @@ class SPLICE(nn.Module):
         -------
             If self.return_weights is True, returns the sparse weights of the images. If False, returns the dense reconstructions.
         """
-        if self.clip != None:
+        if self.clip is not None:
             self.clip.eval()
             with torch.no_grad():
                 image = self.clip.encode_image(image)
@@ -176,7 +176,7 @@ class SPLICE(nn.Module):
         -------
             If self.return_weights is True, returns the sparse weights of the text. If False, returns the dense reconstructions.
         """
-        if self.clip != None:
+        if self.clip is not None:
             self.clip.eval()
             with torch.no_grad():
                 text = self.clip.encode_text(text)
@@ -209,7 +209,7 @@ class SPLICE(nn.Module):
         -------
             If self.return_weights is True, returns the sparse weights of the images. If False, returns the dense reconstructions.
         """
-        if self.clip != None:
+        if self.clip is None:
             self.clip.eval()
             with torch.no_grad():
                 image = self.clip.encode_image(image)
