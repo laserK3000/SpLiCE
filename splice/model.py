@@ -32,7 +32,7 @@ class SPLICE(nn.Module):
         self.device = device
         self.clip = clip.to(self.device) if clip else None
         self.image_mean = image_mean.to(self.device)
-        self.text_mean = text_mean.to(self.device) if text_mean else None
+        self.text_mean = text_mean.to(self.device) if text_mean is not None else None
         self.dictionary = dictionary.to(self.device)
         self.l1_penalty = l1_penalty
         self.return_weights = return_weights
