@@ -187,10 +187,16 @@ class SPLICE(nn.Module):
             
             weights = self.decompose(centered_text)
 
-            if self.return_weights:
+            if self.return_weights and not self.return_cosine:
                 return weights
 
             recon_text = self.recompose_text(weights)
+
+            if self.return_weights and self.return_cosine:
+                return (weights, torch.diag(recon_text @ text.T).sum())
+            
+            if self.return_cosine:
+                return (recon_text, torch.diag(recon_text @ text.T).sum())
 
             return recon_text
         return text
@@ -209,7 +215,7 @@ class SPLICE(nn.Module):
         -------
             If self.return_weights is True, returns the sparse weights of the images. If False, returns the dense reconstructions.
         """
-        if self.clip is None:
+        if self.clip is not None:
             self.clip.eval()
             with torch.no_grad():
                 image = self.clip.encode_image(image)
